@@ -1,0 +1,22 @@
+<form enctype="multipart/form-data" method="post" action="{{ action }}" >
+    <div class="form-group">
+        <label class="control-label">Funcionario</label>
+        <select class="form-control" value="{{ galeria.funcionario_id }}"
+                name="funcionario_id">
+            {% for funcionarios in funcionario%}
+                <option value="{{ funcionarios.id }}"
+                        {{ galeria.funcionario_id is not null and galeria.funcionario_id == funcionarios.id?'selected="selected"':'' }}>
+                    {{ funcionarios.first_name ~ funcionarios.last_name }}</option>
+            {% endfor %}
+        </select>
+        <div class="form-group">
+            <label class="control-label">Imagem</label>
+            <input class="form-control" type="file" placeholder="Selecione a imagem" name="arquivo">
+        </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">
+        <span class="glyphicon glyphicon-{{ submitIcon }}"></span>
+    </button>
+    <center><a ><input type="button" value="Cancelar" onclick="{% set action = route('galeria.store') %}"></a></center>
+</form>

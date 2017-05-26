@@ -1,0 +1,66 @@
+
+{% extends 'layout.html.twig' %}
+
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Administração de Funcionarios
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="{{ route('galeria.new') }}" class="btn btn-success">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Imagem</th>
+                                    <th>Nome Imagem</th>
+                                    <th>Funcionario</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for galeria in galerias%}
+
+
+                                    <tr>
+
+                                        <td>{{ galeria.id }}</td>
+                                        <td><img src="/public/galeria/{{ galeria.categoryFuncionario.first_name }}/{{ galeria.name }}" class="img-rounded" width="50" height="50" ></td>
+                                        <td>{{ galeria.name }}</td>
+                                        <td>{{ galeria.categoryFuncionario.first_name ~ galeria.categoryFuncionario.last_name }}</td>
+                                        <td>
+                                            <a href="{{ route('galeria.edit', {'id' : galeria.id}) }}">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                            </a>
+                                            |
+                                            <a href="{{ route('galeria.show', {'id' : galeria.id}) }}">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

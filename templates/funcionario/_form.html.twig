@@ -1,0 +1,36 @@
+<form method="post" action="{{ action }}">
+    <div class="form-group">
+        <label class="control-label">Cargos</label>
+        <select class="form-control" value="{{ funcionario.function_id }}"
+                name="function_id">
+            {% for category in categories%}
+                <option value="{{ category.id }}"
+                        {{ funcionario.function_id is not null and funcionario.function_id == category.id?'selected="selected"':'' }}>
+                    {{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Nome</label>
+        <input class="form-control" type="text" placeholder="Nome"
+               name="first_name" value="{{ funcionario.first_name }}">
+    </div>
+    <div class="form-group">
+        <label class="control-label">Sobrenome</label>
+        <input class="form-control" type="text" placeholder="Sobrenome"
+               name="last_name" value="{{ funcionario.last_name }}">
+    </div>
+    <div class="form-group">
+        <label class="control-label">Endereco</label>
+        <input class="form-control" type="text" placeholder="Endereco"
+               name="endereco" value="{{ funcionario.endereco }}">
+    </div>
+    <div class="form-group">
+        <label class="control-label">CPF</label>
+        <input class="form-control" type="text" placeholder="CPF"
+               name="cpf" value="{{ funcionario.cpf }}">
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">
+        <span class="glyphicon glyphicon-{{ submitIcon }}"></span>
+    </button>
+</form>

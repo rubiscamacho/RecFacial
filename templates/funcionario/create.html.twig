@@ -1,0 +1,38 @@
+
+{% extends 'layout.html.twig' %}
+
+
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="panel panel-primary">
+
+                <div class="panel-heading">
+
+                    <h3 class="panel-title">
+
+                        Novo Funcionário
+
+                    </h3>
+
+                </div>
+
+                <div class="panel-body">
+
+                    {% set action = route('funcionario.store',{'id': funcionario.id}) %}
+                    {% set submitIcon = 'floppy-disk' %}
+                    {% include 'funcionario/_form.html.twig' %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

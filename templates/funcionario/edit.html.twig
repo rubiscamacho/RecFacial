@@ -1,0 +1,20 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Editar dados do Funcionario
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    {% set action = route('funcionario.update',{'id': funcionario.id}) %}
+                    {% set submitIcon = 'pencil' %}
+                    {% include 'funcionario/_form.html.twig' %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
