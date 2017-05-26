@@ -210,10 +210,11 @@ $app
             if ($foto[$i]['id'] = $id){
                 $fotoNome = $foto[$i]['name'];
                 for ($f = 0; $f < count($nomeFuncionario);$f++) {
-                    $nomeFuncionario[$f]['id'] = array_column($nomeFuncionario, 'id');
-                    $dirFuncionario = $nomeFuncionario[$f]['first_name'] . "/";
+                    if ($nomeFuncionario[$f]['id'] = array_column($nomeFuncionario, 'id')){
+                        $dirFuncionario = $nomeFuncionario[$f]['first_name'] . "/";
+                        unlink($dir . $dirFuncionario . $fotoNome);
+                    }
 
-                    unlink($dir . $dirFuncionario . $fotoNome);
                                 //Exclui diretorio se vazio
                     /*if (!file_exists($dir . $dirFuncionario)) {
                         rmdir($dir . $dirFuncionario);
