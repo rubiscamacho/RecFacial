@@ -9,22 +9,69 @@ use Psr\Http\Message\ServerRequestInterface;
 $app
 
     ->get(
-        '/funcionario', function () use ($app) {
+        '/funcionario', function (ServerRequestInterface $request) use ($app) {
+
 
         $view = $app->service('view.renderer');
         $repository = $app->service('funcionario.repository');
+        $galeria = new SONFin\Models\Galeria();
+        $galerias = $galeria->all();
         $funcionario = new \SONFin\Models\Funcionario();
-        $funcionarios = $funcionario->all();
+            $funcionarios = $funcionario->paginate(5, ['*'], 'page', 1);
+
+
+
+        $aTotalFuncionario = SONFin\Models\Funcionario::query()
+            ->selectRaw('count(*) as total')
+            ->from('funcionarios')
+            ->get();
+
+
 
         return $view->render(
             'funcionario/list.html.twig', [
 
-                'funcionarios' => $funcionarios
+                'funcionarios' => $funcionarios,
+                    'galerias' => $galerias,
+                'total' => $aTotalFuncionario
 
             ]
         );
 
     }, 'funcionario.list'
+    )
+
+    ->get(
+        '/funcionario/page/{id}', function (ServerRequestInterface $request) use ($app) {
+
+
+        $view = $app->service('view.renderer');
+        $repository = $app->service('funcionario.repository');
+        $galeria = new SONFin\Models\Galeria();
+        $galerias = $galeria->all();
+        $funcionario = new \SONFin\Models\Funcionario();
+        $funcionarios = $funcionario->paginate(5, ['*'], 'page', 1);
+
+
+
+        $aTotalFuncionario = SONFin\Models\Funcionario::query()
+            ->selectRaw('count(*) as total')
+            ->from('funcionarios')
+            ->get();
+
+
+
+        return $view->render(
+            'funcionario/list.html.twig', [
+
+                'funcionarios' => $funcionarios,
+                'galerias' => $galerias,
+                'total' => $aTotalFuncionario
+
+            ]
+        );
+
+    }, 'funcionario.pagination'
     )
 
     ->get(
@@ -56,10 +103,26 @@ $app
         $data['cpf'] = ($data['cpf']);
         $data['function_id'] = $data['function_id'];
 
-        $repository->create($data);
+        $mensagem = new \Plasticbrain\FlashMessages\FlashMessages();
+
+
+
+
+
+        if($mensagem->hasErrors(!$repository->create($data))){
+            $mensagem->error('Erro ao salvar no banco de dados');
+            $mensagem->display();
+        }else{
+            $mensagem->success('Adicionado com Sucesso');
+            $mensagem->display();
+        }
+
+
+
         return $app->route('funcionario.list');
     }, 'funcionario.store'
     )
+    
 
     ->get(
         '/funcionario/{id}/edit', function (ServerRequestInterface $request) use ($app) {

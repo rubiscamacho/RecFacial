@@ -13,6 +13,7 @@ namespace SONFin\Plugins;
 
 
 use Interop\Container\ContainerInterface;
+use Plasticbrain\FlashMessages\FlashMessages;
 use SONFin\ServiceContainerInterface;
 use SONFin\View\Twig\TwigGlobals;
 use SONFin\View\ViewRenderer;
@@ -31,6 +32,7 @@ class ViewPlugin implements PluginInterface
 
                 $generator = $container->get('routing.generator');
                 $twig->addExtension(new TwigGlobals($auth));
+                
                 $twig->addFunction(
                     new \Twig_SimpleFunction(
                         'route',
@@ -43,13 +45,17 @@ class ViewPlugin implements PluginInterface
             }
         );
 
+
         $container->addLazy(
             'view.renderer', function (ContainerInterface $container) {
                 $twigEnviroment = $container->get('twig');
                 return new ViewRenderer($twigEnviroment);
             }
         );
+
+
     }
+
 
 
 }

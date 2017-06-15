@@ -1,0 +1,66 @@
+
+{% extends 'layout.html.twig'  %}
+
+
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="panel panel-primary">
+
+                <div class="panel-heading">
+
+                    <h3 class="panel-title">
+
+                        Excluir Imagem
+
+                    </h3>
+
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                        <a href="{{ route('album.delete', {'id' : galeria.id}) }}"
+                        class="btn btn-danger" >
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td scope="row">#</td>
+                                <td>{{ galeria.id }}</td>
+
+                            </tr>
+                            <tr>
+                                <td scope="row">Imagem:</td>
+                                <td><img src="/galeria/{{ galeria.categoryFuncionario.first_name }}/{{ galeria.name }}" class="img-rounded" width="200" height="200">
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td scope="row">Funcionario:</td>
+                                <td>{{ galeria.categoryFuncionario.first_name ~ galeria.categoryFuncionario.last_name }}</td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

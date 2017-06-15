@@ -11,7 +11,8 @@ namespace SONFin\Repository;
 
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Session;
 
 
 class DefaultRepository implements RepositoryInterface
@@ -75,9 +76,7 @@ class DefaultRepository implements RepositoryInterface
     {
 
         $this->model->fill($data);
-
         $this->model->save();
-
         return $this->model;
 
     }

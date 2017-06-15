@@ -12,13 +12,18 @@
                         Administração de Funcionarios
                     </h3>
                 </div>
+
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="{{ route('funcionario.new') }}" class="btn btn-success">
+                            <a href="{{ route('funcionario.new') }}" class="btn btn-success" title="Add Funcionario">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>
+                            <a href="{{ route('galeria.new') }}" class="btn btn-info" title="Add Imagem a funcionario">
+                                <span class="glyphicon glyphicon-picture"></span>
+                            </a>
                         </div>
+
                     </div>
                     <br/>
                     <div class="row">
@@ -40,27 +45,73 @@
 
                                     <tr>
                                         <td>{{ funcionario.id }}</td>
-                                        <td>{{ funcionario.first_name ~ funcionario.last_name }}</td>
+                                        <td>{{ funcionario.first_name ~ ' ' ~ funcionario.last_name }}</td>
                                         <td>{{ funcionario.endereco }}</td>
                                         <td>{{ funcionario.cpf }}</td>
                                         <td>{{ funcionario.categoryFunction.name }}</td>
-                                        <td>
-                                            <a href="{{ route('funcionario.edit', {'id' : funcionario.id}) }}">
+                                        <td><center>
+                                            <a href="{{ route('funcionario.edit', {'id' : funcionario.id}) }}" title="Editar">
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                             </a>
                                             |
-                                            <a href="{{ route('funcionario.show', {'id' : funcionario.id}) }}">
+                                            <a href="{{ route('funcionario.show', {'id' : funcionario.id}) }}" title="Excluir ">
                                                 <span class="glyphicon glyphicon-remove"></span>
                                             </a>
+                                            </center>
                                         </td>
                                     </tr>
+
                                 {% endfor %}
+
                                 </tbody>
                             </table>
+                            <center>
+                                <nav class="col-md-12">
+                                    <ul class="pagination">
+                                        <li>
+                                            <a class="item" {% if funcionarios.currentPage != 1 %} href="{{ route('funcionario.list') }}?page={{ funcionarios.currentPage - 1 }}" {% endif %}><span>&laquo;</span></a>
+
+                                        </li>
+                                         {% if funcionarios.lastPage > 4 %}
+                                            {% for value in 1..4 %}
+                                        <li>
+                                            <a class="{% if funcionarios.currentPage == value %} active {% endif %} item"	 href="{{ route('funcionario.list') }}/page/{{ value }}">{{ value }}</a>
+                                        </li>
+                                            {% endfor %}
+                                            {% for value in (funcionarios.currentPage+1)..(funcionarios.currentPage + 1) if (funcionarios.currentPage < funcionarios.lastPage) and (funcionarios.currentPage > 3) %}                                            {% if funcionarios.currentPage > 4 %}<a class="{% if funcionarios.currentPage == (value - 1) %} active {% endif %} item" href="{{ route('funcionario.list') }}/page/{{ value - 1 }}">{{ value - 1 }}</a>{% endif %}
+                                            {% if funcionarios.currentPage > 4 %}<a class="{% if funcionarios.currentPage == (value - 1) %} active {% endif %} item" href="{{ route('funcionario.list') }}/page/{{ value - 1 }}">{{ value - 1 }}</a>{% endif %}
+
+
+                                        <li>
+                                            <a class="{% if funcionarios.currentPage == value %} active {% endif %} item"	 href="{{ route('funcionario.list') }}/page/{{ value }}">{{ value }}</a>
+
+                                        </li>
+                                            {% endfor %}
+                                             <div class="disabled item">...</div>
+                                         {% else %}
+                                             {% for value in 1..(funcionarios.lastPage-1) %}
+                                        <li>
+                                            <a class="{% if funcionarios.currentPage == value %} active {% endif %} item"	 href="{{ route('funcionario.list') }}/page/{{ value }}">{{ value }}</a>
+
+                                        </li>
+                                             {% endfor %}
+                                             {% endif %}
+                                        <li>
+                                            <a class="{% if funcionarios.currentPage == funcionarios.lastPage %} active {% endif %} item"	 href="{{ route('funcionario.list') }}/page/{{ funcionarios.lastPage }}">{{ funcionarios.lastPage }}</a></li>
+
+                                        </li>
+                                        <li>
+                                            <a class="item" {% if funcionarios.currentPage != funcionarios.lastPage %} href="{{ route('funcionario.list') }}/page/{{ funcionarios.currentPage + 1 }}" {% endif %} rel="next">&raquo;</a>
+
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </center>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 {% endblock %}

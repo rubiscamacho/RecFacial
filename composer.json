@@ -20,10 +20,16 @@
         "twig/twig": "~1.0",
         "illuminate/database": "5.4.13",
         "jasny/auth": "1.0.1",
-        "vlucas/phpdotenv": "2.4"
+        "vlucas/phpdotenv": "2.4",
+        "laracasts/flash": "^3.0",
+        "plasticbrain/php-flash-messages": "^1.0",
+        "illuminate/pagination": "^5.4"
 
     },
     "autoload":{
+        "files": [
+          "src/helpers.php"
+        ],
         "psr-4":{
             "SONFin\\": "src/"
         }

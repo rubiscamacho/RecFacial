@@ -10,6 +10,8 @@ class ComposerStaticInit056b2c6b20dc87fa8e457225f36a1075
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
+        'e23faeee409e941dc9b4c80386209c39' => __DIR__ . '/..' . '/laracasts/flash/src/Laracasts/Flash/functions.php',
+        'b8560416dd3da553998e444617f14278' => __DIR__ . '/../..' . '/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -37,6 +39,7 @@ class ComposerStaticInit056b2c6b20dc87fa8e457225f36a1075
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
+            'Plasticbrain\\FlashMessages\\' => 27,
             'Phinx\\' => 6,
         ),
         'J' => 
@@ -47,6 +50,7 @@ class ComposerStaticInit056b2c6b20dc87fa8e457225f36a1075
         array (
             'Interop\\Container\\' => 18,
             'Illuminate\\Support\\' => 19,
+            'Illuminate\\Pagination\\' => 22,
             'Illuminate\\Database\\' => 20,
             'Illuminate\\Contracts\\' => 21,
             'Illuminate\\Container\\' => 21,
@@ -122,6 +126,10 @@ class ComposerStaticInit056b2c6b20dc87fa8e457225f36a1075
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
+        'Plasticbrain\\FlashMessages\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/plasticbrain/php-flash-messages/src',
+        ),
         'Phinx\\' => 
         array (
             0 => __DIR__ . '/..' . '/robmorgan/phinx/src/Phinx',
@@ -137,6 +145,10 @@ class ComposerStaticInit056b2c6b20dc87fa8e457225f36a1075
         'Illuminate\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/support',
+        ),
+        'Illuminate\\Pagination\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/pagination',
         ),
         'Illuminate\\Database\\' => 
         array (
@@ -181,6 +193,13 @@ class ComposerStaticInit056b2c6b20dc87fa8e457225f36a1075
             'Pimple' => 
             array (
                 0 => __DIR__ . '/..' . '/pimple/pimple/src',
+            ),
+        ),
+        'L' => 
+        array (
+            'Laracasts\\Flash' => 
+            array (
+                0 => __DIR__ . '/..' . '/laracasts/flash/src',
             ),
         ),
         'D' => 

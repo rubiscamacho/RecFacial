@@ -1,0 +1,65 @@
+
+{% extends 'layout.html.twig' %}
+
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <center>Albuns</center>
+                    </h3>
+                </div>
+                <div class="panel-body">
+
+                    <br/>
+                    <tbody>
+
+                    {% for galeria in galerias%}
+                        <div id="gallery" >
+                            <ul>
+                                <div class="col-md-6">
+                                    <li>
+                                        <a href="{{ route('album.albumshow', {'id' : galeria.funcionario_id}) }}">
+                                            <img src="/galeria/{{ galeria.categoryFuncionario.first_name }}/{{ galeria.name }}" class="img-rounded" width="200" height="200">
+                                            <figcaption> Ver Album: {{ galeria.categoryFuncionario.first_name }}</figcaption>
+                                        </a>
+                                    </li>
+                                    </br>
+                                </div>
+
+                            </ul>
+                        </div>
+
+                    {% endfor %}
+                    </tbody>
+                    <center>
+                        <nav class="col-md-12">
+                        <ul class="pagination">
+                            <li>
+                                <a href="caminho-pagina-0" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a>1</a>
+                            </li>
+                            <!-- FOR CONTA NUMERO PAGINAS COM IF QUE MUDA ESTILO PARA SABER QUAL PAGINA ESTA -->
+                            <li>
+                                <a href="caminho-pagina-0" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}

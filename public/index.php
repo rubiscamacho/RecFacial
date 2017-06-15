@@ -37,16 +37,13 @@ require_once  __DIR__ . '/../src/helpers.php';
         return $response;
     });
 
-require_once __DIR__ . '/../src/controllers/category-costs.php';
+
 require_once __DIR__ . '/../src/controllers/category-functions.php';
 require_once __DIR__ . '/../src/controllers/galeria.php';
 require_once __DIR__ . '/../src/controllers/funcionario.php';
+require_once __DIR__ . '/../src/controllers/album.php';
 require_once __DIR__ . '/../src/controllers/users.php';
 require_once __DIR__ . '/../src/controllers/auth.php';
-require_once __DIR__ . '/../src/controllers/bill-receives.php';
-require_once __DIR__ . '/../src/controllers/bill-pays.php';
-require_once __DIR__ . '/../src/controllers/statements.php';
-require_once __DIR__ . '/../src/controllers/charts.php';
 
 
 $app->start();

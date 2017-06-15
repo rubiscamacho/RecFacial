@@ -1,0 +1,52 @@
+
+{% extends 'layout.html.twig' %}
+
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Album
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="{{ route('galeria.list') }}" class="btn btn-success">
+                                <span class="glyphicon glyphicon-arrow-left"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <br/>
+                                <tbody>
+
+                                {% for galeria in galerias%}
+                                    <div id="gallery" >
+                                        <ul>
+                                            <div class="col-md-6">
+                                                <li>
+                                                    <a href="#">
+                                                    <img src="/galeria/{{ galeria.categoryFuncionario.first_name }}/{{ galeria.name }}" class="img-rounded" width="200" height="200">
+
+                                                    </a>
+                                                </li>
+                                                </br>
+                                            </div>
+
+                                        </ul>
+                                    </div>
+
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

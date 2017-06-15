@@ -10,7 +10,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Administração de Funcionarios
+                        Administração de Imagens
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -27,36 +27,62 @@
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
-                                    <th style="width: 10px">#</th>
-                                    <th>Imagem</th>
-                                    <th>Nome Imagem</th>
-                                    <th>Funcionario</th>
+                                    <th style="width: 10px">#Id#</th>
+                                    <th><center>Imagem</center></th>
+                                    <th><center>Funcionario</center></th>
+                                    <th><center>Ações</center></th>
 
                                 </tr>
                                 </thead>
                                 <tbody>
+
                                 {% for galeria in galerias%}
 
-
-                                    <tr>
-
-                                        <td>{{ galeria.id }}</td>
-                                        <td><img src="/public/galeria/{{ galeria.categoryFuncionario.first_name }}/{{ galeria.name }}" class="img-rounded" width="50" height="50" ></td>
-                                        <td>{{ galeria.name }}</td>
-                                        <td>{{ galeria.categoryFuncionario.first_name ~ galeria.categoryFuncionario.last_name }}</td>
-                                        <td>
-                                            <a href="{{ route('galeria.edit', {'id' : galeria.id}) }}">
+                                            <tr>
+                                            <td>{{ galeria.id }}</td>
+                                        <td><a href="{{ route('galeria.album', {'id' : galeria.funcionario_id}) }}" title="Abrir Album"><span class=" label label-warning">{{ galeria.total }}</span></a>
+                                            <img src="/galeria/{{ galeria.categoryFuncionario.first_name }}/{{ galeria.name }}" class="img-circle" width="50" height="50" >
+                                        </td>
+                                        <td><center>{{ galeria.categoryFuncionario.first_name ~ ' ' ~ galeria.categoryFuncionario.last_name }}</center></td>
+                                        <td><center>
+                                            <a href="{{ route('galeria.edit', {'id' : galeria.id}) }}" title="Editar">
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                             </a>
                                             |
-                                            <a href="{{ route('galeria.show', {'id' : galeria.id}) }}">
-                                                <span class="glyphicon glyphicon-remove"></span>
+                                            <a href="{{ route('galeria.show', {'id' : galeria.id}) }}" title="Excluir">
+                                                <span class="glyphicon glyphicon-trash"></span>
                                             </a>
+                                            |
+                                            <a href="{{ route('galeria.album', {'id' : galeria.funcionario_id}) }}" title="Album">
+                                                <span class="glyphicon glyphicon-eye-open"></span>
+                                            </a>
+                                            </center>
                                         </td>
                                     </tr>
+
                                 {% endfor %}
                                 </tbody>
                             </table>
+                            <center>
+                                <nav class="col-md-12">
+                                    <ul class="pagination">
+                                        <li>
+                                            <a href="caminho-pagina-0" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a>1</a>
+                                        </li>
+                                        <!-- FOR CONTA NUMERO PAGINAS COM IF QUE MUDA ESTILO PARA SABER QUAL PAGINA ESTA -->
+                                        <li>
+                                            <a href="caminho-pagina-0" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </center>
                         </div>
                     </div>
                 </div>

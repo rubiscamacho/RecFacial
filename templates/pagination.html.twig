@@ -1,0 +1,23 @@
+{% block content %}
+<div class="ui basic center aligned segment">
+    <div class="ui yellow pagination menu">
+        <a class="item" {% if funcionarios.currentPage != 1 %} href="{{ base_url() }}/funcionario?page={{ funcionarios.currentPage - 1 }}" {% endif %}><span>&laquo;</span></a>
+        {% if funcionarios.lastPage > 4 %}
+            {% for value in 1..4 %}
+                <a class="{% if funcionarios.currentPage == value %} active {% endif %} item"	 href="{{ base_url() }}/funcionario?page={{ value }}">{{ value }}</a>
+            {% endfor %}
+            {% for value in (funcionarios.currentPage+1)..(funcionarios.currentPage + 1) if (funcionarios.currentPage < funcionarios.lastPage) and (funcionarios.currentPage > 3) %}
+                {% if funcionarios.currentPage > 4 %}<a class="{% if funcionarios.currentPage == (value - 1) %} active {% endif %} item" href="{{ base_url() }}/funcionario?page={{ value - 1 }}">{{ value - 1 }}</a>{% endif %}
+                <a class="{% if funcionarios.currentPage == value %} active {% endif %} item"	 href="{{ base_url() }}/funcionario?page={{ value }}">{{ value }}</a>
+            {% endfor %}
+            <div class="disabled item">...</div>
+        {% else %}
+            {% for value in 1..(funcionarios.lastPage-1) %}
+                <a class="{% if funcionarios.currentPage == value %} active {% endif %} item"	 href="{{ base_url() }}/funcionario?page={{ value }}">{{ value }}</a>
+            {% endfor %}
+        {% endif %}
+        <a class="{% if funcionarios.currentPage == funcionarios.lastPage %} active {% endif %} item"	 href="{{ base_url() }}/funcionario?page={{ funcionarios.lastPage }}">{{ funcionarios.lastPage }}</a></li>
+        <a class="item" {% if funcionarios.currentPage != funcionarios.lastPage %} href="{{ base_url() }}/funcionario?page={{ funcionarios.currentPage + 1 }}" {% endif %} rel="next">&raquo;</a>
+    </div>
+</div>
+{% endblock %}

@@ -17,6 +17,7 @@ class TwigGlobals extends \Twig_Extension implements \Twig_Extension_GlobalsInte
      * @var AuthInterface
      */
     private $auth;
+    private $message;
 
 
     /**
@@ -30,7 +31,8 @@ class TwigGlobals extends \Twig_Extension implements \Twig_Extension_GlobalsInte
     public function getGlobals()
     {
         return[
-           'Auth' => $this->auth
+           'Auth' => $this->auth,
+            'message' => $this->message
         ];
     }
 

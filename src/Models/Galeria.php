@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Galeria extends Model implements GaleriaInterface
 {
+   private $totalPage = 3;
     //Mass Assigment
     protected $fillable = [
       'name',

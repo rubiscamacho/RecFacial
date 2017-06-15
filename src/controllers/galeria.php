@@ -13,19 +13,27 @@ $app
 
         $view = $app->service('view.renderer');
         $repository = $app->service('galeria.repository');
-        $galeria = new \SONFin\Models\Galeria();
-        $galerias = $galeria->all();
+        $oFuncionario = new \SONFin\Models\Funcionario();
+        $id_funcionario = SONFin\Models\Galeria::query()
+            ->selectRaw('*, count(1) as total')
+            ->from('galerias')
+            ->groupBy('funcionario_id')
+            ->get();
+
 
         return $view->render(
             'galeria/list.html.twig', [
 
-                'galerias' => $galerias
+                'galerias' => $id_funcionario,
 
             ]
         );
 
     }, 'galeria.list'
     )
+
+
+
 
     ->get(
         '/galeria/new', function () use ($app) {
@@ -73,32 +81,49 @@ $app
 
                   if (is_dir($NomePasta)) {
                       move_uploaded_file($foto["tmp_name"], $caminho_imagem);
-
                   } else {
                       mkdir("$NomePasta", 0777);
                       move_uploaded_file($foto["tmp_name"], $caminho_imagem);
-
                   }
                   break;
               }
-
-
-
-
-
         }
         $repository = $app->service('galeria.repository');
         $funcionarioRepository = $app->service('funcionario.repository');
-
-
         $data['name'] = $nome_imagem;
         $data['funcionario_id'] = $data['funcionario_id'];
 
 
-
         $repository->create($data);
+
+       // flash('Sorry! Please try again.')->error();
         return $app->route('galeria.list');
     }, 'galeria.store'
+    )
+
+    ->get(
+        '/galeria/album/{id}', function (ServerRequestInterface $request) use ($app) {
+
+        $view = $app->service('view.renderer');
+
+        $repository = $app->service('galeria.repository');
+
+        $id = $request->getAttribute('id');
+        $aFotos = SONFin\Models\Galeria::query()
+            ->select('*')
+            ->from('galerias')
+            ->where('funcionario_id', '=', $id)
+            ->get();
+
+        return $view->render(
+            'galeria/album.html.twig',
+            [
+
+                'galerias' => $aFotos
+            ]
+        );
+
+    }, 'galeria.album'
     )
 
     ->get(
@@ -194,47 +219,34 @@ $app
         $repository = $app->service('galeria.repository');
         $repositoryFuncionario = $app->service('funcionario.repository');
 
-        $funcionario = new \SONFin\Models\Funcionario();
-        $nomeFuncionario = $funcionario->all()->toArray();
         $id = $request->getAttribute('id');
+
         $nomeFoto = new \SONFin\Models\Galeria();
-        $foto = $nomeFoto->all()->toArray();
+        $foto = $nomeFoto->find($id)->toArray();
 
-        $nomeFoto = $request->getAttribute('name');
-       // $caminho_imagem = "/home/rubis/Documentos/TCC/public/galeria/" . $nomeFoto;
-        $dir = "/home/rubis/Documentos/TCC/public/galeria/";
-            array_column($foto,'funcionario_id','id');
+        $funcionario = new \SONFin\Models\Funcionario();
+        $nomeFuncionario = $funcionario->find($foto['funcionario_id'])->toArray();
+
+        $aListaFotos = SONFin\Models\Galeria::query()
+            ->select('*')
+            ->from('galerias')
+            ->where('funcionario_id', '=', $nomeFuncionario['id'])
+            ->get();
 
 
-        for($i = 0; $i < count($foto); ++$i) {
-            if ($foto[$i]['id'] = $id){
-                $fotoNome = $foto[$i]['name'];
-                for ($f = 0; $f < count($nomeFuncionario);$f++) {
-                    if ($nomeFuncionario[$f]['id'] = array_column($nomeFuncionario, 'id')){
-                        $dirFuncionario = $nomeFuncionario[$f]['first_name'] . "/";
-                        unlink($dir . $dirFuncionario . $fotoNome);
-                    }
+        $diretorio = "/home/rubis/Documentos/TCC/public/galeria/". $nomeFuncionario['first_name'];
 
-                                //Exclui diretorio se vazio
-                    /*if (!file_exists($dir . $dirFuncionario)) {
-                        rmdir($dir . $dirFuncionario);
+        foreach ($aListaFotos as $aFotoApagar) {
 
-                    }*/
-                }
-
-            }
-            break;
+            unlink($diretorio . '/'. $aFotoApagar->toArray()['name']);
+            rmdir($diretorio);
+            $aFotoApagar->delete();
 
         }
-
-        $repository->delete(
-            [
-
-                'id' => $id
+        
+        
 
 
-            ]
-        );
 
 
         return $app->route('galeria.list');

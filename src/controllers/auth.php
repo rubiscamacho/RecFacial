@@ -20,7 +20,7 @@ $app
             if (!$result) {
                 return $view->render('auth/login.html.twig');
             }
-            return $app->route('statements.list');
+            return $app->route('funcionario.list');
         }, 'auth.login'
     )
 

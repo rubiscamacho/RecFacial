@@ -13,6 +13,7 @@ namespace SONFin\Plugins;
 
 
 use Interop\Container\ContainerInterface;
+use Plasticbrain\FlashMessages\FlashMessages;
 use SONFin\Models\BillPay;
 use SONFin\Models\BillReceive;
 use SONFin\Models\CategoryCost;
@@ -37,11 +38,7 @@ class DbPlugin implements PluginInterface
 
 
         $container->add('repository.factory', new RepositoryFactory());
-        $container->addLazy(
-            'category-cost.repository', function () {
-                return new CategoryCostRepository();
-            }
-        );
+
 
         $container->addLazy(
             'category-function.repository', function (ContainerInterface $container) {
@@ -61,17 +58,6 @@ class DbPlugin implements PluginInterface
         }
         );
 
-        $container->addLazy(
-            'bill-receive.repository', function (ContainerInterface $container) {
-                return $container->get('repository.factory')->factory(BillReceive::class);
-            }
-        );
-
-        $container->addLazy(
-            'bill-pay.repository', function (ContainerInterface $container) {
-                return $container->get('repository.factory')->factory(BillPay::class);
-            }
-        );
 
         $container->addLazy(
             'user.repository', function (ContainerInterface $container) {
@@ -79,11 +65,11 @@ class DbPlugin implements PluginInterface
             }
         );
 
-        $container->addLazy(
-            'statement.repository', function () {
-                return new StatementRepository();
-            }
+        $container->addLazy('flash', function($container){
+            return new \Plasticbrain\FlashMessages\FlashMessages();
+             }
         );
+
 
     }
 
